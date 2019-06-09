@@ -1,0 +1,22 @@
+# Kconfig - nRF51 CALLIOPE_MINI board configuration
+#
+# Copyright (c) 2019 Matthias Wauer
+#
+# SPDX-License-Identifier: Apache-2.0
+
+if BOARD_CALLIOPE_MINI
+
+config BOARD
+	default "calliope_mini"
+
+if I2C
+
+config I2C_0
+	default y
+
+endif # I2C
+
+config BT_CTLR
+	default BT
+
+endif # BOARD_CALLIOPE_MINI

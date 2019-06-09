@@ -1,0 +1,9 @@
+# Kconfig - nRF51 CALLIOPE_MINI board configuration
+#
+# Copyright (c) 2019 Matthias Wauer
+#
+# SPDX-License-Identifier: Apache-2.0
+
+config BOARD_CALLIOPE_MINI
+	bool "CALLIOPE MINI"
+	depends on SOC_NRF51822_QFAA
