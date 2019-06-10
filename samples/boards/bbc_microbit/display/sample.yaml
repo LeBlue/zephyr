@@ -2,5 +2,5 @@ sample:
   name: BB micro:bit Display
 tests:
   sample.board.bbc_microbit.display:
-    platform_whitelist: bbc_microbit
+    platform_whitelist: bbc_microbit calliope_mini
     tags: display

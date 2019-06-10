@@ -37,7 +37,7 @@ Hardware
 
 The Calliope mini has the following physical features:
 
-* 25 individually-programmable LEDs
+* 25 individually-programmable LEDs, compatible with :ref:`bbc microbit` display
 * 1 RGB LED
 * 2 programmable buttons
 * Physical connection pins
