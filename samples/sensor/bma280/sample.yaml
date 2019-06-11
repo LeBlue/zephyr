@@ -1,0 +1,22 @@
+sample:
+  name: BMA280 Sensor sample
+tests:
+  sample.sensor.bma280:
+    harness: console
+    tags: sensors
+    depends_on: i2c bma280
+    harness_config:
+        type: one_line
+        regex:
+            - "x: (.*); y: (.*); z: (.*)"
+        fixture: fixture_i2c_bma280
+  sample.sensor.bma280.spi:
+    harness: console
+    tags: sensors
+    depends_on: spi bma280
+    extra_args: "CONF_FILE=prj_spi.conf"
+    harness_config:
+        type: one_line
+        regex:
+            - "x: (.*); y: (.*); z: (.*)"
+        fixture: fixture_spi_bme280
