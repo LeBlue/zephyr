@@ -50,15 +50,15 @@
 };
 
 &gpiote {
-	status ="ok";
+	status ="okay";
 };
 
 &gpio0 {
-	status ="ok";
+	status ="okay";
 };
 
 &uart0 {
-	status = "ok";
+	status = "okay";
 	current-speed = <115200>;
 	tx-pin = <24>;
 	rx-pin = <25>;
@@ -75,7 +75,7 @@
 */
 
 &i2c0 {
-	status = "ok";
+	status = "okay";
 	clock-frequency = <I2C_BITRATE_FAST>;
 	sda-pin = <20>;
 	scl-pin = <19>;
@@ -88,14 +88,14 @@
 		compatible = "bmm150";
 		reg = <0x10>;
 		label = "bmm150";
-		status = "ok";
+		status = "okay";
 	};
 	/* bmx055 accelerometer */
 	bma280: bma280@18 {
 		compatible = "bma280";
 		reg = <0x18>;
 		label = "bma280";
-		status = "ok";
+		status = "okay";
 		/* shared interrrupt w/ bmg160 */
 		int1-gpios = <&gpio0 21 0>;
 	};
@@ -104,7 +104,7 @@
 		compatible = "bmg160";
 		reg = <0x68>;
 		label = "bmg";
-		status = "ok";
+		status = "okay";
 		/* shared interrupt w/ bma280 */
 		int3-gpios = <&gpio0 21 0>;
 	};

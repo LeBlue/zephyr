@@ -19,4 +19,8 @@ endif # I2C
 config BT_CTLR
 	default BT
 
+if BMA280
+config BMA280_CHIP_BMC150_ACCEL
+endif
+
 endif # BOARD_CALLIOPE_MINI
