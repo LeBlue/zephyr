@@ -6,11 +6,11 @@ Calliope mini
 Overview
 ********
 
-The Calliope mini is an 
-ARM-based embedded system Calliope mini is a small educational development board 
-made for primary school and up in Germany based on the bbc:microbit.
+The Calliope mini is an ARM-based embedded system Calliope mini is a small
+educational development board made for primary school and up in Germany
+based on the bbc:microbit.
 
-The board is 4 cm × 5 cm and has an ARM Cortex-M0 processor, accelerometer and
+The board has an ARM Cortex-M0 processor, accelerometer and
 magnetometer sensors, Bluetooth and USB connectivity, a display consisting of
 25 LEDs, two programmable buttons, and can be powered by either USB or an
 external battery pack. The device inputs and outputs are through five ring
@@ -69,6 +69,13 @@ hardware features:
 +-----------+------------+----------------------+
 | RADIO     | on-chip    | Bluetooth            |
 +-----------+------------+----------------------+
+
+Supported samples
+=================
+
+- hello_world
+- basic/button
+- boards/bbc_microbit/display
 
 Programming and Debugging
 *************************
