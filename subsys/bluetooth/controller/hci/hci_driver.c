@@ -473,21 +473,21 @@ static int hci_driver_send(struct net_buf *buf)
 		return -EINVAL;
 	}
 
-	LOG_ERR("file %s, line %d", __FILE__, __LINE__);
+	LOG_ERR("before bt_buf_get_type");
 	type = bt_buf_get_type(buf);
-	LOG_ERR("file %s, line %d", __FILE__, __LINE__);
+	LOG_ERR("after bt_buf_get_type");
 	switch (type) {
 #if defined(CONFIG_BT_CONN)
 	case BT_BUF_ACL_OUT:
-		LOG_ERR("file %s, line %d", __FILE__, __LINE__);
+		LOG_ERR("before acl_handle");
 		err = acl_handle(buf);
-		LOG_ERR("file %s, line %d", __FILE__, __LINE__);
+		LOG_ERR("after acl_handle");
 		break;
 #endif /* CONFIG_BT_CONN */
 	case BT_BUF_CMD:
-		LOG_ERR("file %s, line %d", __FILE__, __LINE__);
+		LOG_ERR("before cmd_handle");
 		err = cmd_handle(buf);
-		LOG_ERR("file %s, line %d", __FILE__, __LINE__);
+		LOG_ERR("before cmd_handle");
 		break;
 	default:
 		BT_ERR("Unknown HCI type %u", type);
@@ -495,9 +495,9 @@ static int hci_driver_send(struct net_buf *buf)
 	}
 
 	if (!err) {
-		LOG_ERR("file %s, line %d", __FILE__, __LINE__);
+		LOG_ERR("before net_buf_unref");
 		net_buf_unref(buf);
-		LOG_ERR("file %s, line %d", __FILE__, __LINE__);
+		LOG_ERR("after net_buf_unref");
 	}
 
 	BT_DBG("exit: %d", err);
