@@ -56,6 +56,8 @@ struct net_buf *bt_buf_get_rx(enum bt_buf_type type, s32_t timeout)
 	if (buf) {
 		net_buf_reserve(buf, CONFIG_BT_HCI_RESERVE);
 		bt_buf_set_type(buf, type);
+	} else {
+		BT_ERR("net_buf_alloc failed: %d, TO: %s", type, timeout);
 	}
 
 	return buf;
