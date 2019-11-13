@@ -1068,9 +1068,10 @@ int usb_write(u8_t ep, const u8_t *data, u32_t data_len, u32_t *bytes_ret)
 	int ret;
 
 	do {
+		*bytes_ret = 0;
 		ret = usb_dc_ep_write(ep, data, data_len, bytes_ret);
 		if (ret == -EAGAIN) {
-			LOG_WRN("Failed to write endpoint buffer 0x%02x", ep);
+			LOG_WRN("Failed to write endpoint buffer 0x%02x, buf: %p, sz: %d, wr: %d", ep, data, data_len, *bytes_ret);
 			k_sleep(K_MSEC(1));
 		}
 
@@ -1154,7 +1155,7 @@ static void usb_transfer_work(struct k_work *item)
 
 		ret = usb_write(ep, trans->buffer, trans->bsize, &bytes);
 		if (ret) {
-			LOG_ERR("Transfer error %d", ret);
+			LOG_ERR("Transfer error %d, sz: %d", ret, trans->bsize);
 			/* transfer error */
 			trans->status = -EINVAL;
 			goto done;
