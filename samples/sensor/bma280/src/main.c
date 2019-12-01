@@ -10,7 +10,7 @@
 
 void main(void)
 {
-	struct device *dev = device_get_binding("BMA280");
+	struct device *dev = device_get_binding(CONFIG_BMA280_NAME);
 
 	if (dev == NULL) {
 		printk("Could not get BMA280 device\n");
