@@ -37,6 +37,10 @@
 
 #include "memq.h"
 
+static volatile u32_t faultyLink = 0; /* stupid way to prevent from being optimised out */
+static volatile u32_t faultyHead = 0;
+static volatile u32_t faultyTail = 0;
+
 /**
  * @brief Initialize a memory queue to be empty and valid.
  *
@@ -49,6 +53,12 @@ memq_link_t *memq_init(memq_link_t *link, memq_link_t **head, memq_link_t **tail
 {
 	/* Head and tail pointer to the initial link - forms an empty queue */
 	*head = *tail = link;
+
+	if (((0x20000000 & (u32_t)link) == 0) || ((0xdfff0000 & (u32_t)link) != 0)) {
+		faultyLink = (u32_t)link; /* for adding breaks here */
+		faultyLink++;
+		faultyLink--;
+	}
 
 	return link;
 }
@@ -99,6 +109,12 @@ memq_link_t *memq_enqueue(memq_link_t *link, void *mem, memq_link_t **tail)
 	 */
 	*tail = link;
 
+	if (((0x20000000 & (u32_t)(*tail)) == 0) || ((0xdfff0000 & (u32_t)(*tail)) != 0)) {
+		faultyTail = (u32_t)(*tail); /* for adding breaks here */
+		faultyTail++;
+		faultyTail--;
+	}
+
 	return link;
 }
 
@@ -115,6 +131,17 @@ memq_link_t *memq_peek(memq_link_t *head, memq_link_t *tail, void **mem)
 	/* If head and tail are equal, then queue empty */
 	if (head == tail) {
 		return NULL;
+	}
+
+	if (((0x20000000 & (u32_t)head) == 0 )|| ((0xdfff0000 & (u32_t)head) != 0)) {
+		faultyHead = (u32_t)head; /* for adding breaks here */
+		faultyHead++;
+		faultyHead--;
+	}
+	if (((0x20000000 & (u32_t)tail) == 0) || ((0xdfff0000 & (u32_t)tail) != 0)) {
+		faultyTail = (u32_t)tail; /* for adding breaks here */
+		faultyTail++;
+		faultyTail--;
 	}
 
 	/* Extract the head link-element's memory */
@@ -146,6 +173,12 @@ memq_link_t *memq_dequeue(memq_link_t *tail, memq_link_t **head, void **mem)
 
 	/* Update the head-pointer to point to the new head element */
 	*head = old_head->next;
+
+	if (((0x20000000 & (u32_t)(*head)) == 0) || ((0xdfff0000 & (u32_t)(*head)) != 0)) {
+		faultyHead = (u32_t)(*head); /* for adding breaks here */
+		faultyHead++;
+		faultyHead--;
+	}
 
 	return old_head;
 }
