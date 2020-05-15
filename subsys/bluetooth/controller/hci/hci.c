@@ -1087,6 +1087,8 @@ static void le_set_scan_enable(struct net_buf *buf, struct net_buf **evt)
 #endif
 	status = ll_scan_enable(cmd->enable);
 
+	BT_WARN("Scan %s, status %x", cmd->enable ? "enable": "disable", status);
+
 	ccst = hci_cmd_complete(evt, sizeof(*ccst));
 	ccst->status = status;
 }
@@ -2850,6 +2852,8 @@ static void le_conn_complete(struct pdu_data *pdu_data, u16_t handle,
 		conn_count++;
 	}
 
+	BT_WARN("conn cplt: handle: 0x%04x, status: %x, conn cnt %x.", handle, status, conn_count);
+
 #if defined(CONFIG_BT_CTLR_PRIVACY)
 	if (le_event_mask & BT_EVT_MASK_LE_ENH_CONN_COMPLETE) {
 		struct bt_hci_evt_le_enh_conn_complete *leecc;
@@ -2918,6 +2922,8 @@ static void disconn_complete(struct pdu_data *pdu_data, u16_t handle,
 	ep->status = 0x00;
 	ep->handle = sys_cpu_to_le16(handle);
 	ep->reason = *((u8_t *)pdu_data);
+
+	BT_WARN("disconn cplt: handle: 0x%04x, status: 0, new conn_cnt: %x.", handle, (conn_count - 1));
 
 #if defined(CONFIG_BT_HCI_ACL_FLOW_CONTROL)
 	/* Clear any pending packets upon disconnection */
