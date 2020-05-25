@@ -27,6 +27,14 @@
 #include <bluetooth/buf.h>
 #include <bluetooth/hci_raw.h>
 
+#if defined(CONFIG_SOC_FAMILY_NRF)
+#include <bluetooth/controller.h>
+#include <bluetooth/addr.h>
+#include <sys/byteorder.h>
+#include <nrfx.h>
+#endif /* CONFIG_SOC_FAMILY_NRF */
+
+
 #define LOG_MODULE_NAME hci_uart
 LOG_MODULE_REGISTER(LOG_MODULE_NAME);
 
@@ -307,6 +315,17 @@ void main(void)
 
 	LOG_DBG("Start");
 	__ASSERT(hci_uart_dev, "UART device is NULL");
+
+#if defined(CONFIG_SOC_FAMILY_NRF)
+	bt_addr_t sAddr;
+
+	sys_put_le32(NRF_FICR->DEVICEADDR[0], &sAddr.val[0]);
+	sys_put_le16(NRF_FICR->DEVICEADDR[1], &sAddr.val[4]);
+
+	BT_ADDR_SET_STATIC(&sAddr);
+
+	bt_ctlr_set_public_addr(sAddr.val);
+#endif /* CONFIG_SOC_FAMILY_NRF */
 
 	/* Enable the raw interface, this will in turn open the HCI driver */
 	bt_enable_raw(&rx_queue);
