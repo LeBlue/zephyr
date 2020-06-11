@@ -84,8 +84,8 @@ Zephyr. The ``smp_svr`` sample comes in different flavours.
 
    .. group-tab:: Bluetooth
 
-      The sample application comes in two bluetooth flavours: a normal one and a tiny one
-      for resource constrained bluetooth devices.
+      The sample application comes in three bluetooth flavours: a normal one, a tiny one
+      for resource constrained bluetooth devices and one with only authenticated access.
 
       To build the normal bluetooth sample:
 
@@ -106,6 +106,16 @@ Zephyr. The ``smp_svr`` sample comes in different flavours.
             samples/subsys/mgmt/mcumgr/smp_svr \
             -- \
             -DOVERLAY_CONFIG=overlay-bt-tiny.conf
+
+      And to build the authenticated only bluetooth sample:
+
+      .. code-block:: console
+
+         west build \
+            -b nrf51dk_nrf51422 \
+            samples/subsys/mgmt/mcumgr/smp_svr \
+            -- \
+            -DOVERLAY_CONFIG=overlay-secure.conf
 
    .. group-tab:: Serial
 
